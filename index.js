@@ -7,7 +7,7 @@ const optionElements = document.querySelectorAll('.option');
 
 const question = document.getElementById('question');
 const numberOfQuestion = document.getElementById('number-of-question');
-const numberOfAllQuestion = document.getElementById('number-of-all-question');
+const numberOfAllQuestion = document.getElementById('number-of-all-questions');
 
 let indexOfQuestion;
 let indexOfPage = 0;
@@ -18,7 +18,7 @@ const btnNext = document.getElementById('btn-next');
 let score = 0;
 
 const correctAnswer = document.getElementById('correct-answer');
-const numberOfAllQuestion2 = document.getElementById('number-of-all-question-2');
+const numberOfAllQuestion2 = document.getElementById('number-of-all-questions-2');
 const btnTryAgain = document.getElementById('btn-try-again');
 
 const questions = [
@@ -116,6 +116,8 @@ const load = () => {
     indexOfPage++;
 }
 
+let completedAnswers = [];
+
 const randomQuestion = () => {
     let randomNumber = Math.floor(Math.random() * questions.length);
     let hitDuplicate = false;
@@ -142,4 +144,76 @@ const randomQuestion = () => {
         }
     };
     completedAnswers.push(indexOfQuestion);
+};  
+
+const checkAnswer = el => {
+    if (el.target.dataset.id == questions[indexOfQuestion].rightAnswer) {
+        el.target.classList.add('correct');
+        updateTracker('correct');
+        score++;
+    } else {
+        el.target.classList.add('wrong');
+        updateTracker('wrong');
+    }
+    console.log(el);
+    disabledOptions();
+}
+
+const disabledOptions = () => {
+    optionElements.forEach(item => {
+        item.classList.add('disabled');
+        if (item.dataset.id == questions[indexOfQuestion].rightAnswer) {
+            item.classList.add('correct');
+        }
+    })
 };
+
+const enableOptions = () => {
+    optionElements.forEach(item => {
+        item.classList.remove('disabled', 'correct', 'wrong');
+    })
+};
+
+const answerTracker = () => {
+    questions.forEach( () => {
+        const div = document.createElement('div');
+        answersTracker.appendChild(div);
+    })
+};
+
+const updateTracker = status => {
+    answersTracker.children[indexOfPage - 1].classList.add(`${status}`);
+}
+
+const validate = () => {
+    if (!optionElements[0].classList.contains('disabled') ) {
+        alert('Вам нужно выбрать один из вариантов ответа')
+    } else {
+        randomQuestion();
+        enableOptions();
+    }
+}
+
+btnNext.addEventListener('click', validate);
+
+for(option of optionElements) {
+    option.addEventListener('click', e => checkAnswer(e));
+};
+
+const quizOver = () => {
+    console.log('Game Over');
+    document.querySelector('.quiz-over-modal').classList.add('active');
+    correctAnswer.innerHTML = score;
+    numberOfAllQuestion2.innerHTML = questions.length;
+};
+
+const tryAgain = () => {
+    window.location.reload();
+}
+
+btnTryAgain.addEventListener('click', tryAgain);
+
+window.addEventListener('load', () => {
+    randomQuestion();
+    answerTracker();
+});
