@@ -12,6 +12,7 @@ const numberOfAllQuestion = document.getElementById('number-of-all-questions');
 const gameSd = new Audio();
 gameSd.src = './assets/sound/game sound.mp3';
 gameSd.loop = true;
+gameSd.play();
 
 const gameOverSd = new Audio();
 gameOverSd.src = './assets/sound/game over.mp3';
@@ -123,6 +124,26 @@ const questions = [
         ],
         rightAnswer: 2
     },
+    {
+        question: 'Из какого города приехали The Beatles?',
+        options: [
+            'Манчестер',
+            'Лондон',
+            'Ливерпуль',
+            'Йорк'
+        ],
+        rightAnswer: 2
+    },
+    {
+        question: 'О каком певце говорили, что он Король поп-музыки?',
+        options: [
+            'Стинг',
+            'Филипп Киркоров',
+            'Элтон Джон',
+            'Майкл Джексон'
+        ],
+        rightAnswer: 3
+    },
 ];
 
 numberOfAllQuestion.innerHTML = questions.length;
@@ -227,9 +248,12 @@ btnNext.addEventListener('click', validate);
 for (option of optionElements) {
     option.addEventListener('click', e => {
         gameSd.pause();
+        console.log(e.target);
         e.target.classList.add('check');
         checkSd.play();
-        setTimeout(checkAnswer(e), 3000);
+        setTimeout(() => {
+            checkAnswer(e)
+        }, 3000);
     }
     );
 };

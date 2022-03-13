@@ -2,6 +2,10 @@ body {
     margin: 0;
     background: linear-gradient(90deg, #1f244d 0%, #073073 20%, #0050b3 40%, #0050b3 80%, #1f244d 100%);
     font-family: sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 * {
@@ -9,15 +13,14 @@ body {
 }
 
 .quiz-container {
-    max-width: 700px;
-    min-height: 497px;
+    width: 700px;
+    height: 497px;
     background-color: #082759;
-    margin: 30px auto;
     border-radius: 10px;
     padding: 25px; 
 }
 
-.question-number h3 {
+.question-number h2 {
     color: #c2bb37;
     border-bottom: 1px solid #ccc;
     margin: 0;
@@ -52,7 +55,7 @@ body {
 
 .options div.check {
     color: #ffffff;
-    background-color: #c2bb37;
+    background-color: #ffbd11;
 }
 
 .options div.correct {
@@ -125,7 +128,7 @@ body {
 }
 
 .quiz-over-modal .content {
-    background-color: darkcyan;
+    background-color: #082759;
     padding: 30px;
     border-radius: 10px;
     flex-basis: 700px;
@@ -142,7 +145,7 @@ body {
 .quiz-over-modal .content button {
     padding: 15px 50px;
     border: none;
-    background-color: #ff9800;
+    background-color: #c2bb37;
     transition: all .2s ease-in-out;
     border-radius: 5px;
     cursor: pointer;
@@ -151,5 +154,5 @@ body {
 }
 
 .quiz-over-modal .content button:hover {
-    background-color: #ff9900b4;
+    background-color: #0050b3;
 }
